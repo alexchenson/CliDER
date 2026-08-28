@@ -77,14 +77,26 @@ download_climate <- function(model,date,hours,out_dir = "."){
     }
 
     ###Download the file
+    if(length(times) > 3){
 
-    if (file.exists(dst)){
-      print(paste0('File Already Downloaded!!',dst))
-      next
-    }
+      k <- (i/length(times)) * 100
+      prog(k)
+
+      if (file.exists(dst)){
+        next
+        }
+      }
+
     else{
-      print(paste0('Downloading: ',dst))
+      if (file.exists(dst)){
+        print(paste0('File Already Downloaded!!',dst))
+        next
+      }
+      else{
+        print(paste0('Downloading: ',dst))
+      }
     }
+
     tryCatch(
       utils::download.file(url, dst, mode = "wb", quiet = TRUE),
       error = function(e) message("skip ", dst, " z: ", conditionMessage(e)))
