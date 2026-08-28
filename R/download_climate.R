@@ -80,7 +80,7 @@ download_climate <- function(model,date,hours,out_dir = "."){
     if(length(times) > 3){
 
       k <- (i/length(times)) * 100
-      prog(k)
+      prog(k,recurs = TRUE)
 
       if (file.exists(dst)){
         next
@@ -106,4 +106,3 @@ download_climate <- function(model,date,hours,out_dir = "."){
   }
   print('Downloads Complete')
 }
-
