@@ -30,7 +30,7 @@ A curvilinear \code{stars} object.
 Convert a netCDF to a stars object with a curvilinear grid
 }
 \examples{
-\donttest{
+\dontrun{
 r <- curvilinear_nc("hourlyScab/conus404/wrf2d_d01_1996-08-30_170000.nc","T2")
 }
 }

@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' r <- curvilinear_nc("hourlyScab/conus404/wrf2d_d01_1996-08-30_170000.nc","T2")
 #' }
 curvilinear_nc <- function(fp,var_name,lat_name = "XLAT",long_name = "XLONG",time_name = "XTIME"){
