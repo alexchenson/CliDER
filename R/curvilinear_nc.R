@@ -16,8 +16,12 @@
 curvilinear_nc <- function(fp,var_name,lat_name = "XLAT",long_name = "XLONG",time_name = "XTIME"){
 
   #Open NC File
-  nc_in <- ncdf4::nc_open(fp)
-
+  if(typeof(fp) == "character"){
+    nc_in <- ncdf4::nc_open(fp)
+  }
+  else{
+    nc_in <- fp
+  }
   #Read in Latitude Longitude and Time
   lat <- ncdf4::ncvar_get(nc_in,lat_name)
   long <- ncdf4::ncvar_get(nc_in,long_name)
@@ -44,6 +48,8 @@ curvilinear_nc <- function(fp,var_name,lat_name = "XLAT",long_name = "XLONG",tim
     var <- var[nrow(var):1, ]
   }
 
+  dim(var) <- c(dim(var), 1)
+
   s0 = stars::st_as_stars(var)
   s = stars::st_as_stars(
     s0,
@@ -52,7 +58,13 @@ curvilinear_nc <- function(fp,var_name,lat_name = "XLAT",long_name = "XLONG",tim
       X2 = lat   # same name as the second dimension
     )
   )
-  ncdf4::nc_close(nc_in)
+
+  s <- stars::st_set_dimensions(s, 3, values = as.numeric(time))
+  names(s) <- var_name
+
+  if(typeof(fp) == "character"){
+    ncdf4::nc_close(nc_in)
+  }
 
   return(s)
 }

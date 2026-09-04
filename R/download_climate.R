@@ -13,7 +13,7 @@
 #' r <- download_climate('RTMA',date,4,out_dir = ".")
 #' }
 #'
-download_climate <- function(model,date,hours,out_dir = "."){
+download_climate <- function(model,date,hours,out_dir = ".",vars = "NA"){
 
   options(timeout = max(300, getOption("timeout")))
 
@@ -84,8 +84,8 @@ download_climate <- function(model,date,hours,out_dir = "."){
 
       if (file.exists(dst)){
         next
-        }
       }
+    }
 
     else{
       if (file.exists(dst)){
@@ -101,7 +101,15 @@ download_climate <- function(model,date,hours,out_dir = "."){
       utils::download.file(url, dst, mode = "wb", quiet = TRUE),
       error = function(e) message("skip ", dst, " z: ", conditionMessage(e)))
     ###
+    if(vars != "NA"){
+      for(variable in vars){
+        if(model == "CONUS404"){
+          #This is a gridded curvilinear product, we will respect this when extracting our vars
+          var_rast <- curvilinear_nc(dst,variable)
 
+        }
+      }
+    }
 
   }
   print('Downloads Complete')
