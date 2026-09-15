@@ -12,7 +12,7 @@
 #' }
 #'
 
-climate_fp <- function(model,date){
+climate_fp <- function(model,date,format = 'https'){
 
   options(timeout = max(300, getOption("timeout")))
 
@@ -20,7 +20,11 @@ climate_fp <- function(model,date){
 
   #Identify the base model. This is so we don't do this every loop
   if(model == "CONUS404"){
-    base <- "https://tds.gdex.ucar.edu/thredds/dodsC/files/g/d559000"
+    if(format == 'https'){
+      base <- "https://osdf-director.osg-htc.org/ncar/gdex/d559000"
+    }else{
+      base <- "https://tds.gdex.ucar.edu/thredds/dodsC/files/g/d559000"
+    }
   }
   else if(model == "RTMA"){
     base <- "https://noaa-rtma-pds.s3.amazonaws.com"
