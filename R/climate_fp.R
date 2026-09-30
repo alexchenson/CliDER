@@ -30,7 +30,8 @@ climate_fp <- function(model,date,format = 'https'){
     base <- "https://noaa-rtma-pds.s3.amazonaws.com"
   }
   else if(model == "RTMA_PCP"){
-    base <- "https://noaa-rtma-pds.s3.amazonaws.com"
+    #base <- "https://noaa-rtma-pds.s3.amazonaws.com"
+    base <- "https://nomads.ncep.noaa.gov/pub/data/nccf/com/rtma/prod"
   }
   else if(model == "ERA5"){
     print("ERROR: Not Setup Yet")
@@ -69,7 +70,7 @@ climate_fp <- function(model,date,format = 'https'){
   }
 
   else if(model == "RTMA_PCP"){
-
+    ymd <- format(t, "%Y%m%d", tz = "UTC")
     ymdh <- format(t, "%Y%m%d%H", tz = "UTC")
     url <- sprintf("%s/rtma2p5.%s/rtma2p5.%s.pcp.184.grb2",base, ymd, ymdh)
   }
