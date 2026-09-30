@@ -29,6 +29,9 @@ climate_fp <- function(model,date,format = 'https'){
   else if(model == "RTMA"){
     base <- "https://noaa-rtma-pds.s3.amazonaws.com"
   }
+  else if(model == "RTMA_PCP"){
+    base <- "https://noaa-rtma-pds.s3.amazonaws.com"
+  }
   else if(model == "ERA5"){
     print("ERROR: Not Setup Yet")
     return()
@@ -64,6 +67,13 @@ climate_fp <- function(model,date,format = 'https'){
     hh  <- format(t, "%H",     tz = "UTC")
     url <- sprintf("%s/rtma2p5.%s/rtma2p5.t%sz.2dvaranl_ndfd.grb2_wexp", base, ymd, hh)
   }
+
+  else if(model == "RTMA_PCP"){
+
+    ymdh <- format(t, "%Y%m%d%H", tz = "UTC")
+    url <- sprintf("%s/rtma2p5.%s/rtma2p5.%s.pcp.184.grb2",base, ymd, ymdh)
+  }
+
   else{
     print("ERROR: Model not Recognized")
     return()

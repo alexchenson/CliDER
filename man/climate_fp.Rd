@@ -4,7 +4,7 @@
 \alias{climate_fp}
 \title{download climate data}
 \usage{
-climate_fp(model, date)
+climate_fp(model, date, format = "https")
 }
 \arguments{
 \item{model}{Gridded climate model names: "RTMA, URMA, CONSUS404, etc"}
